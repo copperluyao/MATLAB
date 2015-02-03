@@ -1,0 +1,779 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>freeplot</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-03"><meta name="DC.source" content="freeplot.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> varargout=freeplot(numlines)
+<span class="comment">% &iquest;&Eacute;&Ograve;&Ocirc;&Ecirc;&Ouml;&para;&macr;&raquo;&shy;&sup3;&ouml;&AElig;&frac12;&raquo;&not;&micro;&Auml;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&ordm;&macr;&Ecirc;&yacute;&pound;&not;&micro;&laquo;&Ecirc;&Ccedil;&times;&icirc;&para;&agrave;&Auml;&Uuml;&raquo;&shy;7&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;</span>
+
+<span class="comment">%&frac14;&igrave;&sup2;&eacute;&Ecirc;&auml;&Egrave;&euml;&sup2;&Icirc;&Ecirc;&yacute;</span>
+<span class="keyword">if</span> nargin~=1
+    numlines=5;<span class="comment">%&Auml;&not;&Egrave;&Iuml;&raquo;&shy;5&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;</span>
+<span class="keyword">end</span>
+<span class="keyword">if</span> ~isreal(numlines) &amp;&amp; length(numlines)~=1 &amp;&amp; <span class="keyword">...</span>
+        ndims(numlines)~=2 &amp;&amp; numlines&lt;=0
+    error(<span class="string">'&Ecirc;&auml;&Egrave;&euml;&sup2;&Icirc;&Ecirc;&yacute;&plusmn;&Oslash;&ETH;&euml;&Ecirc;&Ccedil;&Ograve;&raquo;&cedil;&ouml;&Otilde;&yacute;&Otilde;&ucirc;&Ecirc;&yacute;&pound;&iexcl;'</span>);
+<span class="keyword">end</span>
+<span class="keyword">if</span> numlines&gt;100
+    error(<span class="string">'&times;&icirc;&para;&agrave;&iquest;&Eacute;&Ograve;&Ocirc;&raquo;&shy;100&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&pound;&iexcl;'</span>);
+    <span class="keyword">return</span>;
+<span class="keyword">end</span>
+
+<span class="comment">%&acute;&ograve;&iquest;&ordf;&Ograve;&raquo;&cedil;&ouml;figure&acute;&deg;&iquest;&Uacute;</span>
+hFig=figure(<span class="string">'Name'</span>,<span class="string">'FreePlot'</span>,<span class="string">'NumberTitle'</span>,<span class="string">'off'</span>);
+<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&ETH;&egrave;&Ograve;&ordf;&micro;&Auml;&Oacute;&brvbar;&Oacute;&Atilde;&sup3;&Igrave;&ETH;&ograve;&Ecirc;&yacute;&frac34;&Yacute;</span>
+setappdata(gcf,<span class="string">'total_lines'</span>,numlines);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&times;&Uuml;&micro;&Auml;&Iuml;&szlig;&Igrave;&otilde;&Ecirc;&yacute;</span>
+setappdata(gcf,<span class="string">'current_lines'</span>,1);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&micro;&plusmn;&Ccedil;&deg;&Otilde;&yacute;&Ocirc;&Uacute;&raquo;&aelig;&Ouml;&AElig;&micro;&Auml;&Iuml;&szlig;&Ecirc;&Ccedil;&micro;&Uacute;&frac14;&cedil;&Igrave;&otilde;</span>
+lines=cell(1,numlines);
+setappdata(gcf,<span class="string">'lines'</span>,lines);<span class="comment">%&plusmn;&pound;&acute;&aelig;&Atilde;&iquest;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&Euml;&ugrave;&raquo;&shy;&micro;&Auml;&micro;&atilde;</span>
+spline_lines=cell(1,numlines);
+setappdata(gcf,<span class="string">'spline_lines'</span>,spline_lines);<span class="comment">%&plusmn;&pound;&acute;&aelig;&Atilde;&iquest;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&AElig;&frac12;&raquo;&not;&ordm;&oacute;&micro;&Auml;&micro;&atilde;</span>
+colors={<span class="string">'b'</span>,<span class="string">'g'</span>,<span class="string">'r'</span>,<span class="string">'c'</span>,<span class="string">'m'</span>,<span class="string">'y'</span>,<span class="string">'k'</span>};
+setappdata(gcf,<span class="string">'colors'</span>,colors(1,1:numlines));<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&Atilde;&iquest;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Ntilde;&Otilde;&Eacute;&laquo;</span>
+line_styles={<span class="string">'-'</span>,<span class="string">':'</span>,<span class="string">'-.'</span>,<span class="string">'--'</span>,<span class="string">'-'</span>,<span class="string">':'</span>,<span class="string">'-.'</span>};
+setappdata(gcf,<span class="string">'line_styles'</span>,line_styles(1,1:numlines));<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&Atilde;&iquest;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Iuml;&szlig;&ETH;&Icirc;</span>
+num_points=zeros(1,numlines);
+setappdata(gcf,<span class="string">'num_points'</span>,num_points);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&Atilde;&iquest;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Euml;&ugrave;&raquo;&shy;&micro;&Auml;&micro;&atilde;&Ecirc;&yacute;</span>
+setappdata(gcf,<span class="string">'num_enters'</span>,0);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&micro;&atilde;&raquo;&divide;Enter&frac14;&uuml;&micro;&Auml;&acute;&Icirc;&Ecirc;&yacute;</span>
+setappdata(gcf,<span class="string">'grid'</span>,1);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&Iacute;&oslash;&cedil;&ntilde;&Icirc;&ordf;&Iuml;&Ocirc;&Ecirc;&frac34;</span>
+setappdata(gcf,<span class="string">'box'</span>,0);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&ordm;&ETH;&times;&Oacute;&Icirc;&ordf;&sup1;&Oslash;&plusmn;&Otilde;</span>
+setappdata(gcf,<span class="string">'xlabel'</span>,[]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;X&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&Icirc;&ordf;&iquest;&Otilde;</span>
+setappdata(gcf,<span class="string">'ylabel'</span>,[]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;Y&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&Icirc;&ordf;&iquest;&Otilde;</span>
+setappdata(gcf,<span class="string">'title'</span>,[]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;&Iacute;&frac14;&ETH;&Icirc;&plusmn;&ecirc;&Igrave;&acirc;&Icirc;&ordf;&iquest;&Otilde;</span>
+setappdata(gcf,<span class="string">'axis_lim'</span>,[0 10 0 10]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;X&Ouml;&aacute;&ordm;&Iacute;Y&Ouml;&aacute;&micro;&Auml;&middot;&para;&Icirc;&sect;&para;&frac14;&Icirc;&ordf;0&micro;&frac12;10</span>
+setappdata(gcf,<span class="string">'xtick'</span>,[]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;X&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;</span>
+setappdata(gcf,<span class="string">'ytick'</span>,[]);<span class="comment">%&Eacute;&egrave;&Ouml;&Atilde;Y&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;</span>
+setappdata(gcf,<span class="string">'istick'</span>,0);<span class="comment">%&plusmn;&ecirc;&Ouml;&frac34;&Ecirc;&Ccedil;&middot;&ntilde;&Eacute;&egrave;&Ouml;&Atilde;&plusmn;&ecirc;&Ccedil;&copy;</span>
+setappdata(gcf,<span class="string">'islegend'</span>,0);<span class="comment">%&plusmn;&ecirc;&Ouml;&frac34;&Ecirc;&Ccedil;&middot;&ntilde;&Eacute;&egrave;&Ouml;&Atilde;legend</span>
+setappdata(gcf,<span class="string">'legend'</span>,[]);<span class="comment">%&Ccedil;&uacute;&Iuml;&szlig;legend</span>
+
+<span class="comment">%&para;&Ocirc;figure&acute;&deg;&iquest;&Uacute;&times;&ouml;&AElig;&auml;&Euml;&ucirc;&micro;&Auml;&Eacute;&egrave;&Ouml;&Atilde;</span>
+axis_lim=getappdata(gcf,<span class="string">'axis_lim'</span>);
+axis(axis_lim);
+set(gcf,<span class="string">'WindowButtonMotionFcn'</span>,{@mouse_moveFcn,1});
+set(gcf,<span class="string">'WindowButtonDownFcn'</span>,{@mouse_downFcn,1});
+set(gcf,<span class="string">'KeyPressFcn'</span>,{@key_pressFcn});
+set(gcf,<span class="string">'Pointer'</span>,<span class="string">'crosshair'</span>);
+grid <span class="string">on</span>
+set(gca,<span class="string">'Color'</span>,<span class="string">'white'</span>);
+hold <span class="string">on</span>
+
+<span class="comment">%&Ecirc;&oacute;&plusmn;&ecirc;&Ograve;&AElig;&para;&macr;&Ecirc;&plusmn;&para;&frac14;&raquo;&aacute;&Ouml;&acute;&ETH;&ETH;&micro;&Auml;&ordm;&macr;&Ecirc;&yacute;</span>
+<span class="keyword">function</span> mouse_moveFcn(obj,evt,flag)
+<span class="keyword">if</span> flag==1
+    pt=get(gca,<span class="string">'CurrentPoint'</span>);
+    x=pt(1,1);
+    y=pt(1,2);
+    xlim=get(gca,<span class="string">'XLim'</span>);
+    ylim=get(gca,<span class="string">'YLim'</span>);
+    <span class="keyword">if</span> x&gt;= xlim(1) &amp;&amp; x&lt;=xlim(2) &amp;&amp; y&gt;=ylim(1) &amp;&amp; y&lt;=ylim(2)
+        <span class="comment">%&Egrave;&ccedil;&sup1;&ucirc;&Ecirc;&oacute;&plusmn;&ecirc;&Ocirc;&Uacute;&times;&oslash;&plusmn;&ecirc;&Ouml;&aacute;&Auml;&Uacute;&sup2;&iquest;</span>
+        title([<span class="string">'Current Point: ('</span> num2str(x) <span class="string">','</span> num2str(y) <span class="string">')'</span>]);
+    <span class="keyword">else</span>
+        <span class="comment">%&Egrave;&ccedil;&sup1;&ucirc;&Ecirc;&oacute;&plusmn;&ecirc;&Ocirc;&Uacute;&times;&oslash;&plusmn;&ecirc;&Ouml;&aacute;&Iacute;&acirc;&sup2;&iquest;</span>
+        str={<span class="string">'&deg;&acute;TAB&frac14;&uuml;&Agrave;&acute;&raquo;&ntilde;&micro;&Atilde;&deg;&iuml;&Ouml;&uacute;&ETH;&Aring;&Iuml;&cent;'</span>};
+        title(str);
+    <span class="keyword">end</span>
+<span class="keyword">else</span>
+    <span class="comment">%&Egrave;&iexcl;&Iuml;&ucirc;&cedil;&Atilde;&ordm;&macr;&Ecirc;&yacute;&micro;&Auml;&Iuml;&igrave;&Oacute;&brvbar;</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> mouse_downFcn(obj,evt,flag)
+<span class="keyword">if</span> flag==1
+    num_points=getappdata(gcf,<span class="string">'num_points'</span>);
+    current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+    <span class="keyword">if</span> num_points(1,current_lines)&gt;=0
+        num_points(1,current_lines)=num_points(1,current_lines)+1;
+    <span class="keyword">else</span>
+        num_points(1,current_lines)=num_points(1,current_lines)+2;
+    <span class="keyword">end</span>
+    setappdata(gcf,<span class="string">'num_points'</span>,num_points);
+    pt=get(gca,<span class="string">'CurrentPoint'</span>);
+    lines=getappdata(gcf,<span class="string">'lines'</span>);
+    lines{1,current_lines}(:,num_points(1,current_lines))=[pt(1,1);pt(1,2)];
+    setappdata(gcf,<span class="string">'lines'</span>,lines);
+    plot(pt(1,1),pt(1,2),<span class="string">'ro'</span>);
+    axis_lim=getappdata(gcf,<span class="string">'axis_lim'</span>);
+    axis(axis_lim);
+<span class="keyword">else</span>
+    <span class="comment">%&Egrave;&iexcl;&Iuml;&ucirc;&cedil;&Atilde;&ordm;&macr;&Ecirc;&yacute;&micro;&Auml;&Iuml;&igrave;&Oacute;&brvbar;</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> key_pressFcn(obj,evt)
+key=get(gcf,<span class="string">'CurrentCharacter'</span>);
+<span class="keyword">switch</span> key
+    <span class="keyword">case</span> 13 <span class="comment">%Enter &raquo;&shy;&Iacute;&frac14;&Iacute;&ecirc;&plusmn;&Iuml;&pound;&not;&iquest;&ordf;&Ecirc;&frac14;&Aacute;&not;&Iuml;&szlig;</span>
+        cla;
+        num_enters=getappdata(gcf,<span class="string">'num_enters'</span>);
+        num_enters=num_enters+1;
+        setappdata(gcf,<span class="string">'num_enters'</span>,num_enters);
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        num_points=getappdata(gcf,<span class="string">'num_points'</span>);
+        spline_lines=getappdata(gcf,<span class="string">'spline_lines'</span>);
+        lines=getappdata(gcf,<span class="string">'lines'</span>);
+        colors=getappdata(gcf,<span class="string">'colors'</span>);
+        line_styles=getappdata(gcf,<span class="string">'line_styles'</span>);
+        <span class="keyword">for</span> i=1:current_lines
+            t=1:num_points(1,i);
+            ts=1:0.1:num_points(1,i);
+            spline_lines{1,i}=spline(t,lines{1,i},ts);
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);
+        <span class="keyword">end</span>
+        setappdata(gcf,<span class="string">'spline_lines'</span>,spline_lines);
+
+        <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+        save(<span class="string">'point.mat'</span>,<span class="string">'spline_lines'</span>);
+        <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+        plot(spline_lines{1,current_lines}(1,:),spline_lines{1,current_lines}(2,:),[colors{1,current_lines} line_styles{1,current_lines}]);
+        axis_lim=getappdata(gcf,<span class="string">'axis_lim'</span>);
+        axis(axis_lim);
+        tle=getappdata(gcf,<span class="string">'title'</span>);
+        xble=getappdata(gcf,<span class="string">'xlabel'</span>);
+        yble=getappdata(gcf,<span class="string">'ylabel'</span>);
+        istick=getappdata(gcf,<span class="string">'istick'</span>);
+        <span class="keyword">if</span> istick==1
+            xtick=getappdata(gcf,<span class="string">'xtick'</span>);
+            ytick=getappdata(gcf,<span class="string">'ytick'</span>);
+            set(gca,<span class="string">'XTick'</span>,xtick);
+            set(gca,<span class="string">'YTick'</span>,ytick);
+        <span class="keyword">end</span>
+        islegend=getappdata(gcf,<span class="string">'islegend'</span>);
+        <span class="keyword">if</span> islegend==1
+            leg=getappdata(gcf,<span class="string">'legend'</span>);
+            legend(leg);
+        <span class="keyword">end</span>
+        title(tle);
+        xlabel(xble);
+        ylabel(yble);
+        set(gcf,<span class="string">'WindowButtonMotionFcn'</span>,{@mouse_moveFcn,0});
+        set(gcf,<span class="string">'WindowButtonDownFcn'</span>,{@mouse_downFcn,0});
+        set(gcf,<span class="string">'Pointer'</span>,<span class="string">'arrow'</span>);
+        hold <span class="string">off</span>
+    <span class="keyword">case</span> 32 <span class="comment">%Space &Eacute;&frac34;&sup3;&yacute;&Eacute;&Iuml;&Ograve;&raquo;&cedil;&ouml;&micro;&atilde;</span>
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        num_points=getappdata(gcf,<span class="string">'num_points'</span>);
+        spline_lines=getappdata(gcf,<span class="string">'spline_lines'</span>);
+        colors=getappdata(gcf,<span class="string">'colors'</span>);
+        line_styles=getappdata(gcf,<span class="string">'line_styles'</span>);
+        lines=getappdata(gcf,<span class="string">'lines'</span>);
+        lines{1,current_lines}=lines{1,current_lines}(:,1:end-1);
+        num_points(1,current_lines)=num_points(1,current_lines)-1;
+        setappdata(gcf,<span class="string">'num_points'</span>,num_points);
+        setappdata(gcf,<span class="string">'lines'</span>,lines);
+        <span class="keyword">if</span> num_points(1,current_lines)&lt;0
+            msgbox(<span class="string">'&Ograve;&Ntilde;&frac34;&shy;&Eacute;&frac34;&sup3;&yacute;&Aacute;&Euml;&Euml;&ugrave;&Oacute;&ETH;&micro;&Auml;&micro;&atilde;&Aacute;&Euml;!'</span>,<span class="string">'&acute;&iacute;&Icirc;&oacute;'</span>,<span class="string">'modal'</span>);
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        cla;
+        <span class="keyword">if</span> current_lines==1
+            plot(lines{1,1}(1,:),lines{1,1}(2,:),<span class="string">'ro'</span>);
+        <span class="keyword">else</span>
+            <span class="keyword">for</span> i=1:current_lines-1
+                plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);
+            <span class="keyword">end</span>
+            plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),<span class="string">'ro'</span>);
+        <span class="keyword">end</span>
+        axis_lim=getappdata(gcf,<span class="string">'axis_lim'</span>);
+        axis(axis_lim);
+    <span class="keyword">case</span> 49 <span class="comment">%number 1  &Eacute;&egrave;&Ouml;&Atilde;&plusmn;&ecirc;&Igrave;&acirc;&pound;&not;X&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&pound;&not;Y&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;</span>
+        prompt={<span class="string">'&plusmn;&ecirc;&Igrave;&acirc;&pound;&ordm;'</span>,<span class="string">'X&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&pound;&ordm;'</span>,<span class="string">'Y&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&pound;&ordm;'</span>};
+        name=<span class="string">'&Eacute;&egrave;&Ouml;&Atilde;&plusmn;&ecirc;&Igrave;&acirc;'</span>;
+        num_lines=1;
+        defAns={<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+        answ=inputdlg(prompt,name,num_lines,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">else</span>
+            setappdata(gcf,<span class="string">'title'</span>,answ{1});
+            setappdata(gcf,<span class="string">'xlabel'</span>,answ{2});
+            setappdata(gcf,<span class="string">'ylabel'</span>,answ{3});
+        <span class="keyword">end</span>
+        title(answ{1});
+        xlabel(answ{2});
+        ylabel(answ{3});
+    <span class="keyword">case</span> 50 <span class="comment">%number 2  &Igrave;&iacute;&frac14;&Oacute;&Aacute;&iacute;&Ograve;&raquo;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;</span>
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        current_lines=current_lines+1;
+        setappdata(gcf,<span class="string">'current_lines'</span>,current_lines);
+        set(gcf,<span class="string">'WindowButtonMotionFcn'</span>,{@mouse_moveFcn,1});
+        set(gcf,<span class="string">'WindowButtonDownFcn'</span>,{@mouse_downFcn,1});
+        set(gcf,<span class="string">'Pointer'</span>,<span class="string">'crosshair'</span>);
+        hold <span class="string">on</span>;
+        msgbox([<span class="string">'&Auml;&atilde;&iquest;&Eacute;&Ograve;&Ocirc;&raquo;&shy;&micro;&Uacute;'</span> num2str(current_lines) <span class="string">'&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;&Aacute;&Euml;.'</span>],<span class="string">'&Igrave;&aacute;&Ecirc;&frac34;'</span>,<span class="string">'modal'</span>);
+    <span class="keyword">case</span> 51 <span class="comment">%number 3  &Eacute;&egrave;&Ouml;&Atilde;&times;&oslash;&plusmn;&ecirc;&middot;&para;&Icirc;&sect;</span>
+        prompt={<span class="string">'X&Ouml;&aacute;&times;&oslash;&plusmn;&ecirc;&middot;&para;&Icirc;&sect;&pound;&ordm;'</span>,<span class="string">'Y&Ouml;&aacute;&times;&oslash;&plusmn;&ecirc;&middot;&para;&Icirc;&sect;&pound;&ordm;'</span>};
+        num_lines=1;
+        name=<span class="string">'&Eacute;&egrave;&Ouml;&Atilde;&times;&oslash;&plusmn;&ecirc;&Ouml;&aacute;'</span>;
+        defAns={<span class="string">'[0 10]'</span>,<span class="string">'[0 10]'</span>};
+        answ=inputdlg(prompt,name,num_lines,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">else</span>
+            xlim=str2num(answ{1});
+            ylim=str2num(answ{2});
+            setappdata(gcf,<span class="string">'axis_lim'</span>,[xlim ylim]);
+        <span class="keyword">end</span>
+        axis([xlim ylim]);
+    <span class="keyword">case</span> 52 <span class="comment">%number 4  &frac12;&laquo;&Iacute;&frac14;&ETH;&Icirc;&plusmn;&pound;&acute;&aelig;&Icirc;&ordf;&Iacute;&frac14;&AElig;&not;</span>
+                [filename, pathname] = uiputfile({<span class="string">'*.jpg'</span>,<span class="string">'JPEG files'</span>;<span class="keyword">...</span>
+            <span class="string">'*.bmp'</span>,<span class="string">'BMP files'</span>;<span class="keyword">...</span>
+            <span class="string">'*.fig'</span>,<span class="string">'MATLAB Fig files'</span>}, <span class="string">'Pick an M-file'</span>);
+        <span class="keyword">if</span> isequal(filename,0) || isequal(pathname,0)
+            <span class="keyword">return</span>;
+        <span class="keyword">else</span>
+            file=fullfile(pathname, filename);
+        <span class="keyword">end</span>
+        saveas(gcf,file);
+    <span class="keyword">case</span> 53 <span class="comment">%number 5  &frac12;&laquo;&Ccedil;&uacute;&Iuml;&szlig;&iquest;&frac12;&plusmn;&acute;&Ouml;&Aacute;&frac14;&ocirc;&Ccedil;&ETH;&deg;&aring;</span>
+        hgexport(gcf,<span class="string">'-clipboard'</span>);
+        msgbox(<span class="string">'&iquest;&frac12;&plusmn;&acute;&Iacute;&ecirc;&plusmn;&Iuml;&pound;&not;&Ouml;&raquo;&Ograve;&ordf;Ctrl+V&Otilde;&sup3;&Igrave;&ugrave;&frac34;&Iacute;OK&Aacute;&Euml;&iexcl;&pound;'</span>,<span class="string">'&Igrave;&aacute;&Ecirc;&frac34;'</span>,<span class="string">'modal'</span>);
+    <span class="keyword">case</span> 54 <span class="comment">%number 6  &Eacute;&egrave;&Ouml;&Atilde;&Ccedil;&uacute;&Iuml;&szlig;&Ntilde;&Otilde;&Eacute;&laquo;</span>
+        colors=getappdata(gcf,<span class="string">'colors'</span>);
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        prompt=cell(1,current_lines);
+        defAns=cell(1,current_lines);
+        <span class="keyword">for</span> i=1:current_lines
+            prompt{1,i}=[<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;'</span> num2str(i) <span class="string">':'</span>];
+            defAns{1,i}=colors{1,i};
+        <span class="keyword">end</span>
+        answ=inputdlg(prompt,<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;&Ntilde;&Otilde;&Eacute;&laquo;'</span>,1,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        colors(1,1:current_lines)=answ(1,1:end);
+        num_enters=getappdata(gcf,<span class="string">'num_enters'</span>);
+        cla;
+        spline_lines=getappdata(gcf,<span class="string">'spline_lines'</span>);
+        line_styles=getappdata(gcf,<span class="string">'line_styles'</span>);
+        lines=getappdata(gcf,<span class="string">'lines'</span>);
+        <span class="keyword">for</span> i=1:num_enters
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);
+        <span class="keyword">end</span>
+        plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),<span class="string">'ro'</span>);
+        setappdata(gcf,<span class="string">'colors'</span>,colors);
+    <span class="keyword">case</span> 55 <span class="comment">%number 7  &Eacute;&egrave;&Ouml;&Atilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Iuml;&szlig;&ETH;&Iacute;</span>
+        colors=getappdata(gcf,<span class="string">'colors'</span>);
+        line_styles=getappdata(gcf,<span class="string">'line_styles'</span>);
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        prompt=cell(1,current_lines);
+        defAns=cell(1,current_lines);
+        <span class="keyword">for</span> i=1:current_lines
+            prompt{1,i}=[<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;'</span> num2str(i) <span class="string">'&micro;&Auml;&Iuml;&szlig;&ETH;&Iacute;:'</span>];
+            defAns{1,i}=line_styles{1,i};
+        <span class="keyword">end</span>
+        answ=inputdlg(prompt,<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;&Iuml;&szlig;&ETH;&Iacute;'</span>,1,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        line_styles(1,1:current_lines)=answ(1,1:end);
+        num_enters=getappdata(gcf,<span class="string">'num_enters'</span>);
+        cla;
+        spline_lines=getappdata(gcf,<span class="string">'spline_lines'</span>);
+        lines=getappdata(gcf,<span class="string">'lines'</span>);
+        <span class="keyword">for</span> i=1:num_enters
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);
+        <span class="keyword">end</span>
+        plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),<span class="string">'ro'</span>);
+        setappdata(gcf,<span class="string">'line_styles'</span>,line_styles);
+    <span class="keyword">case</span> 56 <span class="comment">%number 8  &Iuml;&Ocirc;&Ecirc;&frac34;/&Ograve;&thorn;&sup2;&Oslash;&Iacute;&oslash;&cedil;&ntilde;</span>
+        gridd=getappdata(gcf,<span class="string">'grid'</span>);
+        <span class="keyword">if</span> gridd==1
+            grid <span class="string">off</span>
+            setappdata(gcf,<span class="string">'grid'</span>,0);
+        <span class="keyword">else</span>
+            grid <span class="string">on</span>
+            setappdata(gcf,<span class="string">'grid'</span>,1);
+        <span class="keyword">end</span>
+    <span class="keyword">case</span> 57 <span class="comment">%number 9  &Iuml;&Ocirc;&Ecirc;&frac34;/&Ograve;&thorn;&sup2;&Oslash;&ordm;&ETH;&times;&Oacute;</span>
+        boxx=getappdata(gcf,<span class="string">'box'</span>);
+        <span class="keyword">if</span> boxx==0
+            box <span class="string">on</span>
+            setappdata(gcf,<span class="string">'box'</span>,1);
+        <span class="keyword">else</span>
+            box <span class="string">off</span>
+            setappdata(gcf,<span class="string">'box'</span>,0);
+        <span class="keyword">end</span>
+    <span class="keyword">case</span> 48 <span class="comment">%number 0  &Eacute;&egrave;&Ouml;&Atilde;X&Ouml;&aacute;&ordm;&Iacute;Y&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;</span>
+        xtick=get(gca,<span class="string">'XTick'</span>);
+        ytick=get(gca,<span class="string">'YTick'</span>);
+        prompt={<span class="string">'X&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;&pound;&ordm;'</span>,<span class="string">'Y&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;&pound;&ordm;'</span>};
+        defAns={num2str(xtick),num2str(ytick)};
+        answ=inputdlg(prompt,<span class="string">'&Eacute;&egrave;&Ouml;&Atilde;&plusmn;&ecirc;&Ccedil;&copy;'</span>,1,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        setappdata(gcf,<span class="string">'xtick'</span>,str2num(answ{1}));
+        setappdata(gcf,<span class="string">'ytick'</span>,str2num(answ{2}));
+        set(gca,<span class="string">'XTick'</span>,str2num(answ{1}));
+        set(gca,<span class="string">'YTick'</span>,str2num(answ{2}));
+        setappdata(gcf,<span class="string">'istick'</span>,1);
+    <span class="keyword">case</span> 97 <span class="comment">% a  &Icirc;&ordf;&Ccedil;&uacute;&Iuml;&szlig;&Igrave;&iacute;&frac14;&Oacute;&plusmn;&ecirc;&Ccedil;&copy;</span>
+        current_lines=getappdata(gcf,<span class="string">'current_lines'</span>);
+        prompt=cell(1,current_lines);
+        defAns=cell(1,current_lines);
+        <span class="keyword">for</span> i=1:current_lines
+            prompt{1,i}=[<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;'</span> num2str(i) <span class="string">'&micro;&Auml;&plusmn;&ecirc;&Ccedil;&copy;&pound;&ordm;'</span>];
+            defAns{1,i}=[<span class="string">'data'</span> num2str(i)];
+        <span class="keyword">end</span>
+        answ=inputdlg(prompt,<span class="string">'&Ccedil;&uacute;&Iuml;&szlig;&plusmn;&ecirc;&Ccedil;&copy;'</span>,1,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        setappdata(gcf,<span class="string">'islegend'</span>,1);
+        setappdata(gcf,<span class="string">'legend'</span>,answ);
+        legend(answ);
+    <span class="keyword">case</span> 115 <span class="comment">% s  &Igrave;&iacute;&frac14;&Oacute;&Icirc;&Auml;&times;&Ouml;</span>
+        prompt={<span class="string">'&Ograve;&ordf;&Igrave;&iacute;&frac14;&Oacute;&micro;&Auml;&Icirc;&Auml;&times;&Ouml;&pound;&ordm;'</span>,<span class="string">'&times;&Ouml;&Igrave;&aring;&acute;&oacute;&ETH;&iexcl;&pound;&ordm;'</span>};
+        defAns={<span class="string">'PenG'</span>,<span class="string">'12'</span>};
+        answ=inputdlg(prompt,<span class="string">'&Igrave;&iacute;&frac14;&Oacute;&Icirc;&Auml;&times;&Ouml;'</span>,1,defAns);
+        <span class="keyword">if</span> isempty(answ)
+            <span class="keyword">return</span>;
+        <span class="keyword">end</span>
+        gtext(answ{1},<span class="string">'FontSize'</span>,str2num(answ{2}));
+    <span class="keyword">case</span> 27 <span class="comment">%ESC  &sup2;&eacute;&iquest;&acute;&times;&divide;&Otilde;&szlig;&ETH;&Aring;&Iuml;&cent;</span>
+        str={<span class="string">'&times;&divide;&Otilde;&szlig;: &Aring;&iacute;&frac34;&uuml;'</span>,<span class="string">'&sup2;&copy;&iquest;&Iacute;: http://hi.baidu.com/pengjun'</span>,<span class="keyword">...</span>
+            <span class="string">'&Oacute;&Ecirc;&frac14;&thorn;: hellotim@foxmail.com'</span>,<span class="string">'QQ: 290596664'</span>};
+        msgbox(str,<span class="string">'&times;&divide;&Otilde;&szlig;&ETH;&Aring;&Iuml;&cent;'</span>,<span class="string">'modal'</span>);
+    <span class="keyword">case</span> 9 <span class="comment">%TAB  &Iuml;&Ocirc;&Ecirc;&frac34;&deg;&iuml;&Ouml;&uacute;&ETH;&Aring;&Iuml;&cent;</span>
+        str={<span class="string">'Enter&frac14;&uuml;&pound;&ordm;&raquo;&shy;&micro;&atilde;&Iacute;&ecirc;&plusmn;&Iuml;&pound;&not;&frac12;&oslash;&ETH;&ETH;&AElig;&frac12;&raquo;&not;'</span>,<span class="keyword">...</span>
+            <span class="string">'&iquest;&Otilde;&cedil;&ntilde;&frac14;&uuml;&pound;&ordm;&Eacute;&frac34;&sup3;&yacute;&Eacute;&Iuml;&Ograve;&raquo;&cedil;&ouml;&micro;&atilde;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;1&frac14;&uuml;&pound;&ordm;&Eacute;&egrave;&Ouml;&Atilde;&plusmn;&ecirc;&Igrave;&acirc;&pound;&not;X&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;&ordm;&Iacute;Y&Ouml;&aacute;&times;&cent;&Ecirc;&Iacute;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;2&frac14;&uuml;&pound;&ordm;&Igrave;&iacute;&frac14;&Oacute;&Ograve;&raquo;&Igrave;&otilde;&Ccedil;&uacute;&Iuml;&szlig;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;3&frac14;&uuml;&pound;&ordm;&Eacute;&egrave;&Ouml;&Atilde;XY&Ouml;&aacute;&times;&oslash;&plusmn;&ecirc;&middot;&para;&Icirc;&sect;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;4&frac14;&uuml;&pound;&ordm;&Aacute;&iacute;&acute;&aelig;&Icirc;&ordf;&Iacute;&frac14;&AElig;&not;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;5&frac14;&uuml;&pound;&ordm;&iquest;&frac12;&plusmn;&acute;&Iacute;&frac14;&AElig;&not;&Ouml;&Aacute;&frac14;&ocirc;&Ccedil;&ETH;&deg;&aring;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;6&frac14;&uuml;&pound;&ordm;&Eacute;&egrave;&Ouml;&Atilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Ntilde;&Otilde;&Eacute;&laquo;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;7&frac14;&uuml;&pound;&ordm;&Eacute;&egrave;&Ouml;&Atilde;&Ccedil;&uacute;&Iuml;&szlig;&micro;&Auml;&Iuml;&szlig;&ETH;&Iacute;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;8&frac14;&uuml;&pound;&ordm;&Iuml;&Ocirc;&Ecirc;&frac34;/&Ograve;&thorn;&sup2;&Oslash;&Iacute;&oslash;&cedil;&ntilde;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;9&frac14;&uuml;&pound;&ordm;&Iuml;&Ocirc;&Ecirc;&frac34;/&Ograve;&thorn;&sup2;&Oslash;&ordm;&ETH;&times;&Oacute;'</span>,<span class="keyword">...</span>
+            <span class="string">'&Ecirc;&yacute;&times;&Ouml;0&frac14;&uuml;&pound;&ordm;&Eacute;&egrave;&Ouml;&Atilde;X&Ouml;&aacute;&ordm;&Iacute;Y&Ouml;&aacute;&plusmn;&ecirc;&Ccedil;&copy;'</span>,<span class="keyword">...</span>
+            <span class="string">'&times;&Ouml;&Auml;&cedil;a&frac14;&uuml;&pound;&ordm;&Icirc;&ordf;&Ccedil;&uacute;&Iuml;&szlig;&Igrave;&iacute;&frac14;&Oacute;&plusmn;&ecirc;&Ccedil;&copy;'</span>,<span class="keyword">...</span>
+            <span class="string">'&times;&Ouml;&Auml;&cedil;s&frac14;&uuml;&pound;&ordm;&Igrave;&iacute;&frac14;&Oacute;&Icirc;&Auml;&times;&Ouml;'</span>,<span class="keyword">...</span>
+            <span class="string">'TAB&frac14;&uuml;&pound;&ordm;&sup2;&eacute;&iquest;&acute;&deg;&iuml;&Ouml;&uacute;'</span>,<span class="keyword">...</span>
+            <span class="string">'Esc&frac14;&uuml;&pound;&ordm;&sup2;&eacute;&iquest;&acute;&times;&divide;&Otilde;&szlig;&ETH;&Aring;&Iuml;&cent;'</span>,<span class="keyword">...</span>
+            <span class="string">'&AElig;&auml;&Euml;&ucirc;&frac14;&uuml;&pound;&ordm;&middot;&Atilde;&Icirc;&Ecirc;&times;&divide;&Otilde;&szlig;&sup2;&copy;&iquest;&Iacute;'</span>};
+        msgbox(str,<span class="string">'&deg;&iuml;&Ouml;&uacute;'</span>,<span class="string">'modal'</span>);
+    <span class="keyword">otherwise</span> <span class="comment">%&middot;&Atilde;&Icirc;&Ecirc;&times;&divide;&Otilde;&szlig;&sup2;&copy;&iquest;&Iacute;</span>
+        web <span class="string">http://hi.baidu.com/pengjun</span> <span class="string">-browser</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="freeplot_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function varargout=freeplot(numlines)  
+% ¿ÉÒÔÊÖ¶¯»­³öÆ½»¬µÄÇúÏßµÄº¯Êý£¬µ«ÊÇ×î¶àÄÜ»­7ÌõÇúÏß  
+  
+%¼ì²éÊäÈë²ÎÊý  
+if nargin~=1  
+    numlines=5;%Ä¬ÈÏ»­5ÌõÇúÏß  
+end  
+if ~isreal(numlines) && length(numlines)~=1 && ...  
+        ndims(numlines)~=2 && numlines<=0  
+    error('ÊäÈë²ÎÊý±ØÐëÊÇÒ»¸öÕýÕûÊý£¡');  
+end  
+if numlines>100
+    error('×î¶à¿ÉÒÔ»­100ÌõÇúÏß£¡');  
+    return;  
+end  
+  
+%´ò¿ªÒ»¸öfigure´°¿Ú  
+hFig=figure('Name','FreePlot','NumberTitle','off');  
+%ÉèÖÃÐèÒªµÄÓ¦ÓÃ³ÌÐòÊý¾Ý  
+setappdata(gcf,'total_lines',numlines);%ÉèÖÃ×ÜµÄÏßÌõÊý  
+setappdata(gcf,'current_lines',1);%ÉèÖÃµ±Ç°ÕýÔÚ»æÖÆµÄÏßÊÇµÚ¼¸Ìõ  
+lines=cell(1,numlines);  
+setappdata(gcf,'lines',lines);%±£´æÃ¿ÌõÇúÏßËù»­µÄµã  
+spline_lines=cell(1,numlines);  
+setappdata(gcf,'spline_lines',spline_lines);%±£´æÃ¿ÌõÇúÏßÆ½»¬ºóµÄµã  
+colors={'b','g','r','c','m','y','k'};  
+setappdata(gcf,'colors',colors(1,1:numlines));%ÉèÖÃÃ¿ÌõÇúÏßµÄÑÕÉ«  
+line_styles={'-',':','-.','REPLACE_WITH_DASH_DASH','-',':','-.'};  
+setappdata(gcf,'line_styles',line_styles(1,1:numlines));%ÉèÖÃÃ¿ÌõÇúÏßµÄÏßÐÎ  
+num_points=zeros(1,numlines);  
+setappdata(gcf,'num_points',num_points);%ÉèÖÃÃ¿ÌõÇúÏßµÄËù»­µÄµãÊý  
+setappdata(gcf,'num_enters',0);%ÉèÖÃµã»÷Enter¼üµÄ´ÎÊý  
+setappdata(gcf,'grid',1);%ÉèÖÃÍø¸ñÎªÏÔÊ¾  
+setappdata(gcf,'box',0);%ÉèÖÃºÐ×ÓÎª¹Ø±Õ  
+setappdata(gcf,'xlabel',[]);%ÉèÖÃXÖá×¢ÊÍÎª¿Õ  
+setappdata(gcf,'ylabel',[]);%ÉèÖÃYÖá×¢ÊÍÎª¿Õ  
+setappdata(gcf,'title',[]);%ÉèÖÃÍ¼ÐÎ±êÌâÎª¿Õ  
+setappdata(gcf,'axis_lim',[0 10 0 10]);%ÉèÖÃXÖáºÍYÖáµÄ·¶Î§¶¼Îª0µ½10  
+setappdata(gcf,'xtick',[]);%ÉèÖÃXÖá±êÇ©  
+setappdata(gcf,'ytick',[]);%ÉèÖÃYÖá±êÇ©  
+setappdata(gcf,'istick',0);%±êÖ¾ÊÇ·ñÉèÖÃ±êÇ©  
+setappdata(gcf,'islegend',0);%±êÖ¾ÊÇ·ñÉèÖÃlegend  
+setappdata(gcf,'legend',[]);%ÇúÏßlegend  
+  
+%¶Ôfigure´°¿Ú×öÆäËûµÄÉèÖÃ  
+axis_lim=getappdata(gcf,'axis_lim');  
+axis(axis_lim);  
+set(gcf,'WindowButtonMotionFcn',{@mouse_moveFcn,1});  
+set(gcf,'WindowButtonDownFcn',{@mouse_downFcn,1});  
+set(gcf,'KeyPressFcn',{@key_pressFcn});  
+set(gcf,'Pointer','crosshair');  
+grid on  
+set(gca,'Color','white');  
+hold on  
+  
+%Êó±êÒÆ¶¯Ê±¶¼»áÖ´ÐÐµÄº¯Êý  
+function mouse_moveFcn(obj,evt,flag)  
+if flag==1  
+    pt=get(gca,'CurrentPoint');  
+    x=pt(1,1);  
+    y=pt(1,2);  
+    xlim=get(gca,'XLim');  
+    ylim=get(gca,'YLim');  
+    if x>= xlim(1) && x<=xlim(2) && y>=ylim(1) && y<=ylim(2)  
+        %Èç¹ûÊó±êÔÚ×ø±êÖáÄÚ²¿  
+        title(['Current Point: (' num2str(x) ',' num2str(y) ')']);  
+    else  
+        %Èç¹ûÊó±êÔÚ×ø±êÖáÍâ²¿  
+        str={'°´TAB¼üÀ´»ñµÃ°ïÖúÐÅÏ¢'};  
+        title(str);  
+    end  
+else  
+    %È¡Ïû¸Ãº¯ÊýµÄÏìÓ¦  
+end  
+  
+function mouse_downFcn(obj,evt,flag)  
+if flag==1  
+    num_points=getappdata(gcf,'num_points');  
+    current_lines=getappdata(gcf,'current_lines');  
+    if num_points(1,current_lines)>=0  
+        num_points(1,current_lines)=num_points(1,current_lines)+1;  
+    else  
+        num_points(1,current_lines)=num_points(1,current_lines)+2;  
+    end  
+    setappdata(gcf,'num_points',num_points);  
+    pt=get(gca,'CurrentPoint');  
+    lines=getappdata(gcf,'lines');  
+    lines{1,current_lines}(:,num_points(1,current_lines))=[pt(1,1);pt(1,2)];  
+    setappdata(gcf,'lines',lines);  
+    plot(pt(1,1),pt(1,2),'ro');  
+    axis_lim=getappdata(gcf,'axis_lim');  
+    axis(axis_lim);  
+else  
+    %È¡Ïû¸Ãº¯ÊýµÄÏìÓ¦  
+end  
+  
+function key_pressFcn(obj,evt)  
+key=get(gcf,'CurrentCharacter');  
+switch key  
+    case 13 %Enter »­Í¼Íê±Ï£¬¿ªÊ¼Á¬Ïß  
+        cla;  
+        num_enters=getappdata(gcf,'num_enters');  
+        num_enters=num_enters+1;  
+        setappdata(gcf,'num_enters',num_enters);  
+        current_lines=getappdata(gcf,'current_lines');  
+        num_points=getappdata(gcf,'num_points');  
+        spline_lines=getappdata(gcf,'spline_lines');  
+        lines=getappdata(gcf,'lines');  
+        colors=getappdata(gcf,'colors');  
+        line_styles=getappdata(gcf,'line_styles');  
+        for i=1:current_lines  
+            t=1:num_points(1,i);  
+            ts=1:0.1:num_points(1,i);  
+            spline_lines{1,i}=spline(t,lines{1,i},ts);  
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);  
+        end  
+        setappdata(gcf,'spline_lines',spline_lines);  
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        save('point.mat','spline_lines');
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        plot(spline_lines{1,current_lines}(1,:),spline_lines{1,current_lines}(2,:),[colors{1,current_lines} line_styles{1,current_lines}]);  
+        axis_lim=getappdata(gcf,'axis_lim');  
+        axis(axis_lim);  
+        tle=getappdata(gcf,'title');  
+        xble=getappdata(gcf,'xlabel');  
+        yble=getappdata(gcf,'ylabel');  
+        istick=getappdata(gcf,'istick');  
+        if istick==1  
+            xtick=getappdata(gcf,'xtick');  
+            ytick=getappdata(gcf,'ytick');  
+            set(gca,'XTick',xtick);  
+            set(gca,'YTick',ytick);  
+        end  
+        islegend=getappdata(gcf,'islegend');  
+        if islegend==1  
+            leg=getappdata(gcf,'legend');  
+            legend(leg);  
+        end  
+        title(tle);  
+        xlabel(xble);  
+        ylabel(yble);  
+        set(gcf,'WindowButtonMotionFcn',{@mouse_moveFcn,0});  
+        set(gcf,'WindowButtonDownFcn',{@mouse_downFcn,0});  
+        set(gcf,'Pointer','arrow');  
+        hold off  
+    case 32 %Space É¾³ýÉÏÒ»¸öµã  
+        current_lines=getappdata(gcf,'current_lines');  
+        num_points=getappdata(gcf,'num_points');  
+        spline_lines=getappdata(gcf,'spline_lines');  
+        colors=getappdata(gcf,'colors');  
+        line_styles=getappdata(gcf,'line_styles');  
+        lines=getappdata(gcf,'lines');  
+        lines{1,current_lines}=lines{1,current_lines}(:,1:end-1);  
+        num_points(1,current_lines)=num_points(1,current_lines)-1;  
+        setappdata(gcf,'num_points',num_points);  
+        setappdata(gcf,'lines',lines);  
+        if num_points(1,current_lines)<0  
+            msgbox('ÒÑ¾­É¾³ýÁËËùÓÐµÄµãÁË!','´íÎó','modal');  
+            return;  
+        end  
+        cla;  
+        if current_lines==1  
+            plot(lines{1,1}(1,:),lines{1,1}(2,:),'ro');  
+        else  
+            for i=1:current_lines-1  
+                plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);  
+            end  
+            plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),'ro');  
+        end  
+        axis_lim=getappdata(gcf,'axis_lim');  
+        axis(axis_lim);  
+    case 49 %number 1  ÉèÖÃ±êÌâ£¬XÖá×¢ÊÍ£¬YÖá×¢ÊÍ  
+        prompt={'±êÌâ£º','XÖá×¢ÊÍ£º','YÖá×¢ÊÍ£º'};  
+        name='ÉèÖÃ±êÌâ';  
+        num_lines=1;  
+        defAns={'','',''};  
+        answ=inputdlg(prompt,name,num_lines,defAns);  
+        if isempty(answ)  
+            return;  
+        else  
+            setappdata(gcf,'title',answ{1});  
+            setappdata(gcf,'xlabel',answ{2});  
+            setappdata(gcf,'ylabel',answ{3});  
+        end  
+        title(answ{1});  
+        xlabel(answ{2});  
+        ylabel(answ{3});  
+    case 50 %number 2  Ìí¼ÓÁíÒ»ÌõÇúÏß  
+        current_lines=getappdata(gcf,'current_lines');  
+        current_lines=current_lines+1;  
+        setappdata(gcf,'current_lines',current_lines);  
+        set(gcf,'WindowButtonMotionFcn',{@mouse_moveFcn,1});  
+        set(gcf,'WindowButtonDownFcn',{@mouse_downFcn,1});  
+        set(gcf,'Pointer','crosshair');  
+        hold on;  
+        msgbox(['Äã¿ÉÒÔ»­µÚ' num2str(current_lines) 'ÌõÇúÏßÁË.'],'ÌáÊ¾','modal');  
+    case 51 %number 3  ÉèÖÃ×ø±ê·¶Î§  
+        prompt={'XÖá×ø±ê·¶Î§£º','YÖá×ø±ê·¶Î§£º'};  
+        num_lines=1;  
+        name='ÉèÖÃ×ø±êÖá';  
+        defAns={'[0 10]','[0 10]'};  
+        answ=inputdlg(prompt,name,num_lines,defAns);  
+        if isempty(answ)  
+            return;  
+        else  
+            xlim=str2num(answ{1});  
+            ylim=str2num(answ{2});  
+            setappdata(gcf,'axis_lim',[xlim ylim]);  
+        end  
+        axis([xlim ylim]);  
+    case 52 %number 4  ½«Í¼ÐÎ±£´æÎªÍ¼Æ¬  
+                [filename, pathname] = uiputfile({'*.jpg','JPEG files';...  
+            '*.bmp','BMP files';...  
+            '*.fig','MATLAB Fig files'}, 'Pick an M-file');  
+        if isequal(filename,0) || isequal(pathname,0)  
+            return;  
+        else  
+            file=fullfile(pathname, filename);  
+        end  
+        saveas(gcf,file);  
+    case 53 %number 5  ½«ÇúÏß¿½±´ÖÁ¼ôÇÐ°å  
+        hgexport(gcf,'-clipboard');  
+        msgbox('¿½±´Íê±Ï£¬Ö»ÒªCtrl+VÕ³Ìù¾ÍOKÁË¡£','ÌáÊ¾','modal');  
+    case 54 %number 6  ÉèÖÃÇúÏßÑÕÉ«  
+        colors=getappdata(gcf,'colors');  
+        current_lines=getappdata(gcf,'current_lines');  
+        prompt=cell(1,current_lines);  
+        defAns=cell(1,current_lines);  
+        for i=1:current_lines  
+            prompt{1,i}=['ÇúÏß' num2str(i) ':'];  
+            defAns{1,i}=colors{1,i};  
+        end  
+        answ=inputdlg(prompt,'ÇúÏßÑÕÉ«',1,defAns);  
+        if isempty(answ)  
+            return;  
+        end  
+        colors(1,1:current_lines)=answ(1,1:end);  
+        num_enters=getappdata(gcf,'num_enters');  
+        cla;  
+        spline_lines=getappdata(gcf,'spline_lines');  
+        line_styles=getappdata(gcf,'line_styles');  
+        lines=getappdata(gcf,'lines');  
+        for i=1:num_enters  
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);  
+        end  
+        plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),'ro');  
+        setappdata(gcf,'colors',colors);  
+    case 55 %number 7  ÉèÖÃÇúÏßµÄÏßÐÍ  
+        colors=getappdata(gcf,'colors');  
+        line_styles=getappdata(gcf,'line_styles');  
+        current_lines=getappdata(gcf,'current_lines');  
+        prompt=cell(1,current_lines);  
+        defAns=cell(1,current_lines);  
+        for i=1:current_lines  
+            prompt{1,i}=['ÇúÏß' num2str(i) 'µÄÏßÐÍ:'];  
+            defAns{1,i}=line_styles{1,i};  
+        end  
+        answ=inputdlg(prompt,'ÇúÏßÏßÐÍ',1,defAns);  
+        if isempty(answ)  
+            return;  
+        end  
+        line_styles(1,1:current_lines)=answ(1,1:end);  
+        num_enters=getappdata(gcf,'num_enters');  
+        cla;  
+        spline_lines=getappdata(gcf,'spline_lines');  
+        lines=getappdata(gcf,'lines');  
+        for i=1:num_enters  
+            plot(spline_lines{1,i}(1,:),spline_lines{1,i}(2,:),[colors{1,i} line_styles{1,i}]);  
+        end  
+        plot(lines{1,current_lines}(1,:),lines{1,current_lines}(2,:),'ro');  
+        setappdata(gcf,'line_styles',line_styles);  
+    case 56 %number 8  ÏÔÊ¾/Òþ²ØÍø¸ñ  
+        gridd=getappdata(gcf,'grid');  
+        if gridd==1  
+            grid off  
+            setappdata(gcf,'grid',0);  
+        else  
+            grid on  
+            setappdata(gcf,'grid',1);  
+        end  
+    case 57 %number 9  ÏÔÊ¾/Òþ²ØºÐ×Ó  
+        boxx=getappdata(gcf,'box');  
+        if boxx==0  
+            box on  
+            setappdata(gcf,'box',1);  
+        else  
+            box off  
+            setappdata(gcf,'box',0);  
+        end  
+    case 48 %number 0  ÉèÖÃXÖáºÍYÖá±êÇ©  
+        xtick=get(gca,'XTick');  
+        ytick=get(gca,'YTick');  
+        prompt={'XÖá±êÇ©£º','YÖá±êÇ©£º'};  
+        defAns={num2str(xtick),num2str(ytick)};  
+        answ=inputdlg(prompt,'ÉèÖÃ±êÇ©',1,defAns);  
+        if isempty(answ)  
+            return;  
+        end  
+        setappdata(gcf,'xtick',str2num(answ{1}));  
+        setappdata(gcf,'ytick',str2num(answ{2}));  
+        set(gca,'XTick',str2num(answ{1}));  
+        set(gca,'YTick',str2num(answ{2}));  
+        setappdata(gcf,'istick',1);  
+    case 97 % a  ÎªÇúÏßÌí¼Ó±êÇ©  
+        current_lines=getappdata(gcf,'current_lines');  
+        prompt=cell(1,current_lines);  
+        defAns=cell(1,current_lines);  
+        for i=1:current_lines  
+            prompt{1,i}=['ÇúÏß' num2str(i) 'µÄ±êÇ©£º'];  
+            defAns{1,i}=['data' num2str(i)];  
+        end  
+        answ=inputdlg(prompt,'ÇúÏß±êÇ©',1,defAns);  
+        if isempty(answ)  
+            return;  
+        end  
+        setappdata(gcf,'islegend',1);  
+        setappdata(gcf,'legend',answ);  
+        legend(answ);  
+    case 115 % s  Ìí¼ÓÎÄ×Ö  
+        prompt={'ÒªÌí¼ÓµÄÎÄ×Ö£º','×ÖÌå´óÐ¡£º'};  
+        defAns={'PenG','12'};  
+        answ=inputdlg(prompt,'Ìí¼ÓÎÄ×Ö',1,defAns);  
+        if isempty(answ)  
+            return;  
+        end  
+        gtext(answ{1},'FontSize',str2num(answ{2}));  
+    case 27 %ESC  ²é¿´×÷ÕßÐÅÏ¢  
+        str={'×÷Õß: Åí¾ü','²©¿Í: http://hi.baidu.com/pengjun',...  
+            'ÓÊ¼þ: hellotim@foxmail.com','QQ: 290596664'};  
+        msgbox(str,'×÷ÕßÐÅÏ¢','modal');  
+    case 9 %TAB  ÏÔÊ¾°ïÖúÐÅÏ¢  
+        str={'Enter¼ü£º»­µãÍê±Ï£¬½øÐÐÆ½»¬',...  
+            '¿Õ¸ñ¼ü£ºÉ¾³ýÉÏÒ»¸öµã',...  
+            'Êý×Ö1¼ü£ºÉèÖÃ±êÌâ£¬XÖá×¢ÊÍºÍYÖá×¢ÊÍ',...  
+            'Êý×Ö2¼ü£ºÌí¼ÓÒ»ÌõÇúÏß',...  
+            'Êý×Ö3¼ü£ºÉèÖÃXYÖá×ø±ê·¶Î§',...  
+            'Êý×Ö4¼ü£ºÁí´æÎªÍ¼Æ¬',...  
+            'Êý×Ö5¼ü£º¿½±´Í¼Æ¬ÖÁ¼ôÇÐ°å',...  
+            'Êý×Ö6¼ü£ºÉèÖÃÇúÏßµÄÑÕÉ«',...  
+            'Êý×Ö7¼ü£ºÉèÖÃÇúÏßµÄÏßÐÍ',...  
+            'Êý×Ö8¼ü£ºÏÔÊ¾/Òþ²ØÍø¸ñ',...  
+            'Êý×Ö9¼ü£ºÏÔÊ¾/Òþ²ØºÐ×Ó',...  
+            'Êý×Ö0¼ü£ºÉèÖÃXÖáºÍYÖá±êÇ©',...  
+            '×ÖÄ¸a¼ü£ºÎªÇúÏßÌí¼Ó±êÇ©',...  
+            '×ÖÄ¸s¼ü£ºÌí¼ÓÎÄ×Ö',...  
+            'TAB¼ü£º²é¿´°ïÖú',...  
+            'Esc¼ü£º²é¿´×÷ÕßÐÅÏ¢',...  
+            'ÆäËû¼ü£º·ÃÎÊ×÷Õß²©¿Í'};  
+        msgbox(str,'°ïÖú','modal');  
+    otherwise %·ÃÎÊ×÷Õß²©¿Í  
+        web http://hi.baidu.com/pengjun -browser  
+end  
+##### SOURCE END #####
+--></body></html>
